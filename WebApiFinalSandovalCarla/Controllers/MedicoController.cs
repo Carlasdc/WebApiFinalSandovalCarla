@@ -28,11 +28,11 @@ namespace WebApiFinalSandovalCarla.Controllers
         }
 
         //TRAER UNO
-        [HttpGet("{medicoId}")]
-        public Doctor Get(int medicoId)
+        [HttpGet("{Doctor_No}")]
+        public Doctor Get(int Doctor_No)
         {
             //EF
-            Doctor doctor = Context.Doctores.Find(medicoId);
+            Doctor doctor = Context.Doctores.Find(Doctor_No);
 
             return doctor;
         }
@@ -85,7 +85,15 @@ namespace WebApiFinalSandovalCarla.Controllers
 
             return NoContent();
         }
-
+        // FILTRAR POR ESPECIALIDAD
+        [HttpGet("{especialidad}")]
+        public Hospital Get(string especialidad)
+        {
+            dynamic doctor = (from h in Context.Doctores
+                             where h.Especialidad == especialidad
+                             select h).SingleOrDefault();
+            return doctor;
+        }
 
 
     }
